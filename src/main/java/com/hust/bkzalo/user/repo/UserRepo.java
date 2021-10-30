@@ -1,0 +1,8 @@
+package com.hust.bkzalo.user.repo;
+
+import com.hust.bkzalo.user.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepo extends JpaRepository<User, Long> {
+    User findByUsername(String username);
+}
