@@ -1,4 +1,4 @@
-package com.hust.bkzalo.user.entity;
+package com.hust.bkzalo.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,14 +11,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role {
-    public Role(String name) {
-        this.name = name;
-    }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "serial")
-    private Long id;
+    private String id;
 
     private String name;
 }

@@ -1,4 +1,4 @@
-package com.hust.bkzalo.filter;
+package com.hust.bkzalo.utils;
 
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
