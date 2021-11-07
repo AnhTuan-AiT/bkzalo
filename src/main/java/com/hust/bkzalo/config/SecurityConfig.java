@@ -2,6 +2,7 @@ package com.hust.bkzalo.config;
 
 import com.hust.bkzalo.filter.JwtAuthorizationFilter;
 import com.hust.bkzalo.filter.JwtUsernamePasswordAuthenticationFilter;
+import com.hust.bkzalo.repo.AccountRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder bCryptPasswordEncoder;
 
+    private final AccountRepo accountRepo;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
@@ -33,12 +36,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        JwtUsernamePasswordAuthenticationFilter jwtFilter = new JwtUsernamePasswordAuthenticationFilter(authenticationManagerBean());
+        JwtUsernamePasswordAuthenticationFilter jwtFilter = new JwtUsernamePasswordAuthenticationFilter(authenticationManagerBean(), accountRepo);
         jwtFilter.setFilterProcessesUrl("/login");
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login/**", "/token/refresh/**").permitAll()
+                .antMatchers("/token/refresh/**", "/sign-up").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(STATELESS)
